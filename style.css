@@ -8,6 +8,19 @@
     --transition-speed: 0.3s;
 }
 
+body.dark {
+    --bg-color: #121212;
+    --text-color: #eaeaea;
+    --primary-color: #ffffff;
+    --card-bg: #1e1e1e;
+    --border-color: #333333;
+    --focus-ring: #ffffff;
+}
+
+body.dark .card-icon {
+    filter: invert(1);
+}
+
 * {
     box-sizing: border-box;
     margin: 0;
@@ -54,6 +67,7 @@ nav {
 
 .nav-links {
     display: flex;
+    align-items: center;
     gap: 1.5rem;
 }
 
@@ -110,7 +124,7 @@ section, aside {
 
 #hero .subtitle {
     font-size: 1.2rem;
-    color: black;
+    color: var(--text-color);
     font-weight: 500;
 }
 
@@ -244,6 +258,13 @@ input, textarea {
     border-radius: 4px;
     font-family: inherit;
     background-color: var(--card-bg);
+    color: var(--text-color);
+}
+
+input::placeholder,
+textarea::placeholder {
+    color: var(--text-color);
+    opacity: 0.5;
 }
 
 textarea {
