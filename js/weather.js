@@ -19,5 +19,40 @@
  */
 
 export async function initWeather(city = "krakow") {
-  // TODO: Zaimplementuj asynchroniczne pobieranie danych z IMGW (fetch, await) i render
+  const box = document.querySelector("#weather-box");
+
+  box.textContent = "Ładowanie pogody...";
+
+  try {
+    const response = await fetch("https://danepubliczne.imgw.pl/api/data/synop/station/" + city);
+
+    if (!response.ok) {
+      throw new Error("Błąd serwera: " + response.status);
+    }
+
+    const data = await response.json();
+    box.textContent = "";
+
+    const stationEl = document.createElement("p");
+    stationEl.textContent = data.stacja;
+    stationEl.className = "weather-station";
+
+    const tempEl = document.createElement("p");
+    tempEl.textContent = data.temperatura + " °C";
+    tempEl.className = "weather-temp";
+
+    const pressureEl = document.createElement("p");
+    pressureEl.textContent = "Ciśnienie: " + data.cisnienie + " hPa";
+
+    const windEl = document.createElement("p");
+    windEl.textContent = "Wiatr: " + data.predkosc_wiatru + " m/s";
+
+    const humidityEl = document.createElement("p");
+    humidityEl.textContent = "Wilgotność: " + data.wilgotnosc_wzgledna + " %";
+
+    box.append(stationEl, tempEl, pressureEl, windEl, humidityEl);
+  } catch (error) {
+    box.textContent = "Nie udało się pobrać pogody. Spróbuj później.";
+    box.classList.add("weather-error");
+  }
 }

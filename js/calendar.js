@@ -9,19 +9,41 @@
  * - Bezpieczne wstrzyknięcie sformatowanej treści do dedykowanego slotu DOM (Zero-XSS)
  */
 
+
+function addLine(box, text, className) {
+  const p = document.createElement("p");
+  p.textContent = text;
+  p.className = className;
+  box.append(p);
+}
+
 export function initCalendar() {
-  const box = document.querySelector('#calendar-box');
-  if (!box) return;
+  const box = document.querySelector("#calendar-box");
 
-  const now = new Date();
-  const text = now.toLocaleDateString('pl-PL', {
-    weekday: 'long',
-    day: 'numeric',
-    month: 'long',
-    year: 'numeric'
-  });
+  const text = new Intl.DateTimeFormat("pl-PL", {
+    weekday: "long",
+    day: "numeric",
+    month: "long",
+    year: "numeric"
+  }).format(new Date());
 
-  const dateEl = document.createElement('p');
-  dateEl.textContent = text.charAt(0).toUpperCase() + text.slice(1);
-  box.append(dateEl);
+  const parts = text.split(" ");
+
+  const yearEl = document.createElement("p");
+  yearEl.textContent = parts[3];
+  yearEl.className = "calendar-year";
+
+  const dayEl = document.createElement("p");
+  dayEl.textContent = parts[1];
+  dayEl.className = "calendar-day";
+
+  const monthEl = document.createElement("p");
+  monthEl.textContent = parts[2];
+  monthEl.className = "calendar-month";
+
+  const weekdayEl = document.createElement("p");
+  weekdayEl.textContent = parts[0].replace(",", "");
+  weekdayEl.className = "calendar-weekday";
+
+  box.append(yearEl, dayEl, monthEl, weekdayEl);
 }

@@ -82,7 +82,7 @@ nav {
 }
 
 main {
-    max-width: 1000px;
+    max-width: 1400px;
     margin: 0 auto;
     padding: 2rem;
 }
@@ -153,7 +153,7 @@ section, aside {
     border: 2px solid var(--primary-color);
     padding: 1.5rem;
     border-radius: 8px;
-    box-shadow: 6px 6px 2px var(--primary-color);
+    box-shadow: 6px 6px 9px var(--primary-color), -6px 6px 9px var(--primary-color);
     transition: transform var(--transition-speed);
 }
 
@@ -202,7 +202,7 @@ section, aside {
     border: 2px solid var(--primary-color);
     border-radius: 8px;
     padding: 1.5rem;
-    box-shadow: 6px 6px 2px var(--primary-color);
+    box-shadow: 6px 6px 9px var(--primary-color), -6px 6px 9px var(--primary-color);
     transition: transform var(--transition-speed);
 }
 
@@ -288,6 +288,7 @@ button:hover {
     opacity: 0.8;
 }
 
+/*Motyw*/
 #theme-toggle {
     background: none;
     color: var(--text-color);
@@ -307,12 +308,67 @@ body.dark #theme-toggle img {
     transform: rotate(180deg);
 }
 
+/*Kalendarz*/
+#calendar-box {
+    text-align: center;
+    text-transform: capitalize;
+}
+
+.calendar-year {
+    font-size: 0.9rem;
+}
+
+.calendar-day {
+    font-size: 4rem;
+    font-weight: bold;
+    line-height: 1;
+    color: var(--primary-color);
+}
+
+.calendar-month {
+    font-size: 1.2rem;
+}
+
+.calendar-weekday {
+    font-size: 0.9rem;
+    color: var(--primary-color)
+}
+
+/*Pogoda*/
+#weather-box {
+    text-align: center;
+}
+
+.weather-station {
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.weather-temp {
+    font-size: 3rem;
+    font-weight: bold;
+    line-height: 1.2;
+    color: var(--primary-color);
+}
+
+.weather-error {
+    color: #c0392b;
+    font-weight: bold;
+}
+
+/*Kafelki pogoda + kalendarz*/
+#widgets .card {
+    border: 2px solid var(--primary-color);
+    box-shadow: 6px 6px 9px var(--border-color), -6px 6px 9px var(--border-color);
+}
+
 footer {
     text-align: center;
     padding: 2rem;
     border-top: 1px solid var(--border-color);
     font-size: 0.9rem;
 }
+
 
 @media (max-width: 768px) {
     .about-grid {
@@ -328,5 +384,9 @@ footer {
     .nav-links {
         flex-wrap: wrap;
         justify-content: center;
+    }
+
+    .grid-container {
+        grid-template-columns: 1fr;
     }
 }

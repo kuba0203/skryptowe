@@ -45,5 +45,81 @@ function sanitizeUrl(urlString) {
 
 
 export function initLinks() {
-  // TODO: Zaimplementuj obsługę formularza, listy i delegację zdarzeń w panelu bocznym
+  const form = document.querySelector("#link-form");
+  const nameInput = document.querySelector("#link-name");
+  const urlInput = document.querySelector("#link-url");
+  const errorEl = document.querySelector("#link-error");
+  const list = document.querySelector("#saved-links");
+
+  let links = [];
+  try {
+    const saved = localStorage.getItem("links");
+    if (saved) {
+      links = JSON.parse(saved);
+    }
+  } catch {
+    links = [];
+  }
+
+  function showLinks() {
+    list.textContent = "";
+
+    for (let i = 0; i < links.length; i++) {
+      const li = document.createElement("li");
+
+      const a = document.createElement("a");
+      a.href = links[i].url;
+      a.textContent = links[i].name;
+      a.target = "_blank";
+      a.rel = "noopener noreferrer";
+
+      const button = document.createElement("button");
+      button.type = "button";
+      button.textContent = "Usuń";
+      button.className = "delete-btn";
+      button.dataset.index = i;
+
+      li.append(a, button);
+      list.append(li);
+    }
+  }
+
+  showLinks();
+
+  form.addEventListener("submit", function (event) {
+    event.preventDefault();
+
+    errorEl.textContent = "";
+    nameInput.classList.remove("invalid");
+    urlInput.classList.remove("invalid");
+
+    const name = nameInput.value.trim();
+    const url = sanitizeUrl(urlInput.value);
+
+    if (name.length < 3) {
+      errorEl.textContent = "Nazwa musi mieć co najmniej 3 znaki.";
+      nameInput.classList.add("invalid");
+      return;
+    }
+
+    if (url === null) {
+      errorEl.textContent = "Podaj poprawny adres zaczynający się od http:// lub https://";
+      urlInput.classList.add("invalid");
+      return;
+    }
+
+    links.push({ name: name, url: url });
+    localStorage.setItem("links", JSON.stringify(links));
+    showLinks();
+    form.reset();
+  });
+
+  list.addEventListener("click", function (event) {
+    const button = event.target.closest(".delete-btn");
+    if (!button) return;
+
+    links.splice(Number(button.dataset.index), 1);
+    localStorage.setItem("links", JSON.stringify(links));
+    showLinks();
+  });
 }
