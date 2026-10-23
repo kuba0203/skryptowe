@@ -178,7 +178,7 @@ section, aside {
     font-size: 0.8rem;
 }
 
-.about-grid {
+.about-grid{
     display: grid;
     grid-template-columns: 2fr 1fr;
     gap: 2rem;
@@ -186,7 +186,7 @@ section, aside {
     margin-bottom: 4rem;
 }
 
-.about-grid > * {
+.about-grid > *{
     margin-bottom: 0;
 }
 
@@ -288,6 +288,50 @@ button:hover {
     opacity: 0.8;
 }
 
+/*Kontakt + rejestr odnośników*/
+.contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    align-items: start;
+    margin-bottom: 4rem;
+}
+
+.contact-grid > * {
+    margin-bottom: 0;
+}
+
+.contact-grid form {
+    max-width: none;
+}
+
+/*Dodawanie linków*/
+.saved-title {
+    margin-top: 2rem;
+}
+
+#moje-linki li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.delete-btn {
+    padding: 0.2rem 0.6rem;
+    font-size: 0.8rem;
+}
+
+.link-error {
+    color: #c0392b;
+    font-weight: bold;
+}
+
+.invalid {
+    border-color: #c0392b;
+    outline: 2px solid #c0392b;
+}
+
 /*Motyw*/
 #theme-toggle {
     background: none;
@@ -371,7 +415,7 @@ footer {
 
 
 @media (max-width: 768px) {
-    .about-grid {
+    .about-grid{
         grid-template-columns: 1fr;
     }
 
@@ -387,6 +431,10 @@ footer {
     }
 
     .grid-container {
+        grid-template-columns: 1fr;
+    }
+
+    .contact-grid{
         grid-template-columns: 1fr;
     }
 }

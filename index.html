@@ -87,26 +87,48 @@
 
 
         <!-- Formularz kontaktowy -->
-        <section id="kontakt">
-            <h2>Kontakt</h2>
-            <form action="#" method="POST">
-                <div class="form-group">
-                    <label for="name">Imię i nazwisko:</label>
-                    <input type="text" id="name" name="name" placeholder="Mariusz Pudzianowski" required>
-                </div>
-                
-                <div class="form-group">
-                    <label for="email">Adres e-mail:</label>
-                    <input type="email" id="email" name="email" placeholder="polskagurom@gmail.com" required>
-                </div>
+        <div class="contact-grid">
+            <section id="kontakt">
+                <h2>Kontakt</h2>
+                <form action="#" method="POST">
+                    <div class="form-group">
+                        <label for="name">Imię i nazwisko:</label>
+                        <input type="text" id="name" name="name" placeholder="Mariusz Pudzianowski" required>
+                    </div>
 
-                <div class="form-group">
-                    <label for="message">Wiadomość (min. 10 znaków):</label>
-                    <textarea id="message" name="message" placeholder="Twoja wiadomość..." minlength="10" required></textarea>
-                </div>
-                <button type="submit">Wyślij</button>
-            </form>
-        </section>
+                    <div class="form-group">
+                        <label for="email">Adres e-mail:</label>
+                        <input type="email" id="email" name="email" placeholder="polskagurom@gmail.com" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="message">Wiadomość (min. 10 znaków):</label>
+                        <textarea id="message" name="message" placeholder="Twoja wiadomość..." minlength="10" required></textarea>
+                    </div>
+                    <button type="submit">Wyślij</button>
+                </form>
+            </section>
+
+            <!-- Dodawanie linków -->
+            <aside id="moje-linki">
+                <h2>Dodaj odnośnik</h2>
+                <form id="link-form">
+                    <div class="form-group">
+                        <label for="link-name">Nazwa:</label>
+                        <input type="text" id="link-name" placeholder="np. Mój GitHub">
+                    </div>
+                    <div class="form-group">
+                        <label for="link-url">Adres URL:</label>
+                        <input type="text" id="link-url" placeholder="https://...">
+                    </div>
+                    <p id="link-error" class="link-error"></p>
+                    <button type="submit">Dodaj</button>
+                </form>
+
+                <h2 class="saved-title">Zapisane odnośniki</h2>
+                <ul id="saved-links"></ul>
+            </aside>
+        </div>
     </main>
 
     <footer>
