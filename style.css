@@ -344,12 +344,11 @@ button:hover {
 }
 
 #theme-toggle img {
-    transition: transform var(--transition-speed), filter var(--transition-speed);
+    transition: filter var(--transition-speed);
 }
 
 body.dark #theme-toggle img {
     filter: invert(1);
-    transform: rotate(180deg);
 }
 
 /*Kalendarz*/

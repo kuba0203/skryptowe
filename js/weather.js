@@ -19,7 +19,7 @@
  */
 
 export async function initWeather(city = "krakow") {
-  const box = document.querySelector("#weather-box");
+  const box = document.getElementById("weather-box");
 
   box.textContent = "Ładowanie pogody...";
 
@@ -31,6 +31,7 @@ export async function initWeather(city = "krakow") {
     }
 
     const data = await response.json();
+    console.log(data);
     box.textContent = "";
 
     const stationEl = document.createElement("p");

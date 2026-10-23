@@ -10,15 +10,9 @@
  */
 
 
-function addLine(box, text, className) {
-  const p = document.createElement("p");
-  p.textContent = text;
-  p.className = className;
-  box.append(p);
-}
 
 export function initCalendar() {
-  const box = document.querySelector("#calendar-box");
+  const box = document.getElementById("calendar-box");
 
   const text = new Intl.DateTimeFormat("pl-PL", {
     weekday: "long",

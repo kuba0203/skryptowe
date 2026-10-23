@@ -9,9 +9,9 @@
  */
 
 export function initTheme() {
-  const button = document.querySelector("#theme-toggle");
+  const button = document.getElementById("theme-toggle");
 
-  if (localStorage.getItem("theme") === "dark") {
+  if (localStorage.getItem("theme") == "dark") {
     document.body.classList.add("dark");
   }
 
