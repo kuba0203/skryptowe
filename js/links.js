@@ -45,11 +45,11 @@ function sanitizeUrl(urlString) {
 
 
 export function initLinks() {
-  const form = document.querySelector("#link-form");
-  const nameInput = document.querySelector("#link-name");
-  const urlInput = document.querySelector("#link-url");
-  const errorEl = document.querySelector("#link-error");
-  const list = document.querySelector("#saved-links");
+  const form = document.getElementById("link-form");
+  const nameInput = document.getElementById("link-name");
+  const urlInput = document.getElementById("link-url");
+  const errorEl = document.getElementById("link-error");
+  const list = document.getElementById("saved-links");
 
   let links = [];
   try {
