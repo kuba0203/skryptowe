@@ -148,6 +148,11 @@ export const linksApi = {
   async getAll() {
     // TODO (Zadanie): Pobierz listę odnośników bieżącego użytkownika (GET /links)
     // Wskazówka: Zobacz implementację todosApi.getAll() w projekcie z Wykładu 3.
+    const res = await request("/links");
+    if (!res.ok) {
+      throw new Error("Nie udało się pobrać listy odnośników.");
+    }
+    return await res.json();
   },
 
   /**
@@ -158,6 +163,14 @@ export const linksApi = {
   async create(linkData) {
     // TODO (Zadanie): Wyślij nowy odnośnik na serwer (POST /links)
     // Pamiętaj o przekazaniu obiektu { title, url } w ciele JSON.
+    const res = await request("/links", {
+      method: "POST",
+      body: JSON.stringify(linkData)
+    });
+    if (!res.ok) {
+      throw new Error("Nie udało się utworzyć nowego odnośnika, zaloguj się aby dodawać odnośniki.");
+    }
+    return await res.json();
   },
 
   /**
@@ -167,5 +180,12 @@ export const linksApi = {
    */
   async delete(linkId) {
     // TODO (Zadanie): Usuń odnośnik po jego identyfikatorze ID (DELETE /links/{id})
+    const res = await request(`/links/${linkId}`, {
+      method: "DELETE"
+    });
+    if (!res.ok) {
+      throw new Error("Nie udało się usunąć odnośnika.");
+    }
+    return true;
   }
 };

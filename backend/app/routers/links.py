@@ -42,3 +42,41 @@ router = APIRouter(prefix="/api/links", tags=["Links"])
 #          )
 #    - Usuń obiekt (db.delete, db.commit)
 #    - Zwróć Response(status_code=status.HTTP_204_NO_CONTENT)
+
+@router.get("", response_model=list[LinkResponse])
+def get_links(current_user: User = Depends(get_current_user), db: Session = Depends(get_db),):
+    stmt = select(Link).where(Link.owner_id == current_user.id)
+    links = db.scalars(stmt).all()
+    return links
+
+@router.post("", response_model=LinkResponse, status_code=201)
+def create_link(link_data: LinkCreate, current_user: User = Depends(get_current_user), db: Session = Depends(get_db)):
+    new_link = Link(
+      title=link_data.title, 
+      url=str(link_data.url), 
+      owner_id=current_user.id
+    )
+    db.add(new_link)
+    db.commit()
+    db.refresh(new_link)
+    return new_link
+
+@router.delete("/{link_id}", status_code=204)
+def delete_link(link_id: int, current_user: User = Depends(get_current_user), db: Session = Depends(get_db)):
+    link = db.get(Link, link_id)
+
+    if not link:
+        raise HTTPException(status_code=404, detail="Nie znaleziono odnośnika")
+
+    if link.owner_id != current_user.id:
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Brak uprawnień do tego zasobu (Naruszenie BOLA/IDOR)"
+        )
+
+    db.delete(link)
+    db.commit()
+    return Response(status_code=status.HTTP_204_NO_CONTENT)
+
+
+

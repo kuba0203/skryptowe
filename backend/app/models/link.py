@@ -18,6 +18,13 @@ class Link(Base):
     id: Mapped[int] = mapped_column(Integer, primary_key=True, index=True)
     owner_id: Mapped[int] = mapped_column(Integer, ForeignKey("users.id"), nullable=False)
     owner: Mapped["User"] = relationship("User", back_populates="links")
+    title: Mapped[str] = mapped_column(String(100), nullable=False)
+    url: Mapped[str] = mapped_column(String(500), nullable=False)
+    created_at: Mapped[datetime] = mapped_column(
+        DateTime(timezone=True),
+        default=lambda: datetime.now(timezone.utc)
+    )
+
 
     # TODO (Zadanie 2): Zdefiniuj brakujące pola modelu relacyjnego odnośnika:
     # 1. title: Mapped[str] = mapped_column(String(100), nullable=False)

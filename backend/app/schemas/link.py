@@ -12,7 +12,9 @@ class LinkCreate(BaseModel):
     # TODO (Zadanie 1): Zdefiniuj pola wejściowe:
     # - title: str = Field(..., min_length=3, max_length=100, description="Nazwa odnośnika")
     # - url: HttpUrl = Field(..., description="Prawidłowy adres URI (wyłącznie schematy http/https)")
-    pass
+
+    title: str = Field(..., min_length=3, max_length=100, description="Nazwa odnośnika")
+    url: HttpUrl = Field(..., description="Prawidłowy adres URI (wyłącznie schematy http/https)")
 
 
 class LinkResponse(BaseModel):
@@ -28,4 +30,11 @@ class LinkResponse(BaseModel):
     #
     # Pamiętaj o konfiguracji ORM:
     # model_config = ConfigDict(from_attributes=True)
-    pass
+
+    model_config = ConfigDict(from_attributes=True)
+
+    id: int
+    title: str
+    url: HttpUrl
+    created_at: datetime
+    owner_id: int

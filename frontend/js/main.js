@@ -8,6 +8,7 @@ import { initTheme } from "./theme.js";
 import { initCalendar } from "./calendar.js";
 import { initWeather } from "./weather.js";
 import { initLinks } from "./links.js";
+import { initAuth } from "./auth.js"
 
 function app() {
   console.log("Inicjalizacja aplikacji Lab 02...");
@@ -23,6 +24,8 @@ function app() {
 
   // 4. Inicjalizacja rejestru linków (formularz, lista, zdarzenia)
   initLinks();
+
+  initAuth();
 }
 
 // Skrypty typu module domyślnie czekają na sparsowanie dokumentu HTML,

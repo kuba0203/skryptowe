@@ -6,6 +6,7 @@
     <title>JD Page</title>
     <link rel="icon" href="assets/favicon.svg?v=2" type="image/svg+xml">
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="auth.css">
     <script type="module" src="js/main.js"></script>
 </head>
 <body>
@@ -21,6 +22,13 @@
             <a href="#projekty">Projekty</a>
             <a href="#linki">Linki</a>
             <a href="#kontakt">Kontakt</a>
+            <div id="userSession" class="user-session">
+                <button id="loginBtn" type="button">Zaloguj</button>
+                <div id="userInfo" class="user-info hidden">
+                    <span>Zalogowany: <strong id="loggedUsername">--</strong><span>
+                    <button id="logoutBtn" type="button">Wyloguj</button>
+                </div>
+            </div>
         </div>
     </nav>
 

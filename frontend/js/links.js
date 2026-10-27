@@ -1,4 +1,8 @@
 // js/links.js
+
+import { linksApi } from "./api.js";
+import { onLoginSuccess, onLogoutSuccess } from "./auth.js";
+
 /**
  * Moduł dynamicznego rejestru odnośników w panelu bocznym (<aside id="linki">).
  * 
@@ -51,14 +55,17 @@ export function initLinks() {
   const errorEl = document.getElementById("link-error");
   const list = document.getElementById("saved-links");
 
+  const panel = document.getElementById("linki");
+  panel.classList.add("hidden");
+
   let links = [];
-  try {
-    const saved = localStorage.getItem("links");
-    if (saved) {
-      links = JSON.parse(saved);
+  async function loadLinks() {
+    try {
+      links = await linksApi.getAll();
+      showLinks();
+    } catch (err) {
+      errorEl.textContent = err.message;
     }
-  } catch {
-    links = [];
   }
 
   function showLinks() {
@@ -69,7 +76,7 @@ export function initLinks() {
 
       const a = document.createElement("a");
       a.href = links[i].url;
-      a.textContent = links[i].name;
+      a.textContent = links[i].title;
       a.target = "_blank";
       a.rel = "noopener noreferrer";
 
@@ -77,16 +84,14 @@ export function initLinks() {
       button.type = "button";
       button.textContent = "Usuń";
       button.className = "delete-btn";
-      button.dataset.index = i;
+      button.dataset.id = links[i].id;
 
       li.append(a, button);
       list.append(li);
     }
   }
 
-  showLinks();
-
-  form.addEventListener("submit", function (event) {
+  form.addEventListener("submit", async function (event) {
     event.preventDefault();
 
     errorEl.textContent = "";
@@ -108,18 +113,35 @@ export function initLinks() {
       return;
     }
 
-    links.push({ name: name, url: url });
-    localStorage.setItem("links", JSON.stringify(links));
-    showLinks();
-    form.reset();
+    try{
+      await linksApi.create({ title: name, url });
+      form.reset();
+      await loadLinks();
+    } catch (err) {
+      errorEl.textContent = err.message;
+    }
   });
 
-  list.addEventListener("click", function (event) {
+  list.addEventListener("click", async function (event) {
     const button = event.target.closest(".delete-btn");
     if (!button) return;
 
-    links.splice(Number(button.dataset.index), 1);
-    localStorage.setItem("links", JSON.stringify(links));
-    showLinks();
+    try {
+      await linksApi.delete(button.dataset.id);
+      await loadLinks();
+    } catch (err) {
+      errorEl.textContent = err.message;
+    }
+  });
+
+  onLoginSuccess(function () {
+    panel.classList.remove("hidden");
+    loadLinks();  
+  });
+
+  onLogoutSuccess(function () {
+    links = [];
+    list.textContent = "";
+    panel.classList.add("hidden");
   });
 }
